@@ -1,0 +1,65 @@
+<!doctype html>
+	<head>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.4/ol.css" type="text/css">
+		<style>
+			html, body {
+				margin: 0;
+				height: 100%;
+				body: 100%;
+			}
+			.map {
+				height: 100%;
+				width: 100%;
+			}
+		</style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/openlayers/4.6.4/ol.js"></script>
+		<title>OpenLayers Map</title>
+	</head>
+	<body>
+		<div id="map" class="map"></div>
+		<script type="text/javascript">
+		var map = new ol.Map({
+			target: "map",
+			layers: [
+				new ol.layer.Tile({
+				source: new ol.source.OSM()
+			})
+			],
+			view: new ol.View({
+				center: ol.proj.fromLonLat([12.519041, 41.885166]),
+				zoom: 18
+			})
+		});
+
+		var patharray = [[41.883239, 12.520541, 41.883331, 12.520218, "FF0000", "seg"], [41.883331, 12.520218, 41.883405, 12.519931, "FF0000", "seg"], [41.883348, 12.520591, 41.883239, 12.520541, "FFBF18", "seg"], [41.883348, 12.520591, 41.883399, 12.520617, "FFBF18", "seg"], [41.883399, 12.520617, 41.883939, 12.520829, "FFBF18", "seg"], [41.883405, 12.519931, 41.883435, 12.519784, "FFBF18", "seg"], [41.883405, 12.519931, 41.884123, 12.520005, "FFBF18", "seg"], [41.883435, 12.519784, 41.883552, 12.519282, "FFBF18", "seg"], [41.883939, 12.520829, 41.885046, 12.521275, "00A000", "seg"], [41.883969, 12.52073, 41.883939, 12.520829, "FFBF18", "seg"], [41.883986, 12.52068, 41.883969, 12.52073, "FFBF18", "seg"], [41.884003, 12.520628, 41.883986, 12.52068, "FFBF18", "seg"], [41.884026, 12.520567, 41.884003, 12.520628, "FFBF18", "seg"], [41.884049, 12.520504, 41.884026, 12.520567, "FFBF18", "seg"], [41.884094, 12.52039, 41.884049, 12.520504, "FFBF18", "seg"], [41.884109, 12.520369, 41.884094, 12.52039, "00A000", "seg"], [41.884123, 12.520005, 41.884094, 12.52039, "FFBF18", "seg"], [41.884123, 12.520005, 41.884222, 12.520018, "FFBF18", "seg"], [41.884125, 12.520351, 41.884109, 12.520369, "00A000", "seg"], [41.884145, 12.520337, 41.884125, 12.520351, "00A000", "seg"], [41.884163, 12.52033, 41.884145, 12.520337, "00A000", "seg"], [41.884184, 12.520327, 41.884163, 12.52033, "00A000", "seg"], [41.884203, 12.520329, 41.884184, 12.520327, "00A000", "seg"], [41.884203, 12.520329, 41.884222, 12.520018, "FF0000", "seg"], [41.884222, 12.520018, 41.885102, 12.520096, "00A000", "seg"], [41.884222, 12.520335, 41.884203, 12.520329, "00A000", "seg"], [41.88457, 12.520471, 41.884222, 12.520335, "00A000", "seg"], [41.885046, 12.521275, 41.885042, 12.521335, "FFBF18", "seg"], [41.885071, 12.520679, 41.88457, 12.520471, "00A000", "seg"], [41.885071, 12.520679, 41.885046, 12.521275, "FFBF18", "seg"], [41.885102, 12.520096, 41.885071, 12.520679, "FF0000", "seg"], [41.885139, 12.519443, 41.883552, 12.519282, "00A000", "seg"], [41.885139, 12.519443, 41.885102, 12.520096, "FFBF18", "seg"]];
+
+		for (i = 0; i < patharray.length; i++){
+			var lonlat1 = ol.proj.fromLonLat([patharray[i][1], patharray[i][0]]);
+			var lonlat2 = ol.proj.fromLonLat([patharray[i][3], patharray[i][2]]);
+			var pathstyle = [
+				new ol.style.Style({
+					stroke: new ol.style.Stroke({
+						color: "#"+patharray[i][4],
+						width: 4
+					})
+				})
+			];
+
+			var pathlayer = new ol.layer.Vector({
+				source: new ol.source.Vector({
+					features: [new ol.Feature({
+						geometry: new ol.geom.LineString([lonlat1, lonlat2]),
+						firstcoordinates: [patharray[i][1], patharray[i][0]],
+						secondcoordinates: [patharray[i][3], patharray[i][2]],
+						pathtitle: patharray[i][5],
+					})]
+				})
+			});
+
+			pathlayer.setStyle(pathstyle);
+			map.addLayer(pathlayer);
+		}
+
+		</script>
+	</body>
+</html>
