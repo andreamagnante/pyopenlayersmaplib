@@ -1,5 +1,5 @@
 # pyopenlayersmaplib
-A python script to draw points, paths, circle and road on a OSM map
+A python lib to draw points, paths, circle and road on a OSM map
 
 ``` Python
 from pyolmapslib import pyolmaps
