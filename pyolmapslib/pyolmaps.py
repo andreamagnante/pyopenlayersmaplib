@@ -74,7 +74,7 @@ class maps:
         f.write('\t\t\t})\n')
         f.write('\t\t\t],\n')
         f.write('\t\t\tview: new ol.View({\n')
-        f.write('\t\t\t\tcenter: ol.proj.fromLonLat([12.519041, 41.885166]),\n')
+        f.write('\t\t\t\tcenter: ol.proj.fromLonLat([%f, %f]),\n' % (self.center[1], self.center[0]))
         f.write('\t\t\t\tzoom: 18\n')
         f.write('\t\t\t})\n')
         f.write('\t\t});\n')
@@ -303,3 +303,4 @@ class maps:
         f.write('\t\tradcirclelayer.setStyle(radcirclestyle)\n')
         f.write('\t\tmap.addLayer(radcirclelayer);\n')
         f.write('\n')
+
